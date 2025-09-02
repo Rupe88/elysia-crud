@@ -7,27 +7,25 @@ console.log('Data Source initialized!');
 
 const userRepo = AppDataSource.getRepository(User);
 
-// Create Elysia app
 const app = new Elysia();
 
-// GET all users
 app.get('/users', async () => {
   return await userRepo.find();
 });
 
-// GET user by ID
+
 app.get('/users/:id', async ({ params }: { params: { id: string } }) => {
   const user = await userRepo.findOneBy({ id: Number(params.id) });
   return user || { message: 'User not found' };
 });
 
-// POST create user
+
 app.post('/users', async ({ body }: { body: Partial<User> }) => {
   const user = userRepo.create(body);
   return await userRepo.save(user);
 });
 
-// PUT update user
+
 app.put(
   '/users/:id',
   async ({ params, body }: { params: { id: string }; body: Partial<User> }) => {
@@ -38,7 +36,7 @@ app.put(
   }
 );
 
-// DELETE user
+
 app.delete('/users/:id', async ({ params }: { params: { id: string } }) => {
   const user = await userRepo.findOneBy({ id: Number(params.id) });
   if (!user) return { message: 'User not found' };
