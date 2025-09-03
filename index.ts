@@ -26,6 +26,7 @@ app.post('/users', async ({ body }: { body: Partial<User> }) => {
 });
 
 
+
 app.put(
   '/users/:id',
   async ({ params, body }: { params: { id: string }; body: Partial<User> }) => {
